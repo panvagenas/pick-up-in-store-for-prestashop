@@ -128,6 +128,20 @@ class Module extends \XDaRk\CarrierModule {
 		return 0;
 	}
 
+	public function getOrderCarrierExtendedInfo(\Cart $cart){
+		$carrier = new \Carrier($cart->id_carrier);
+		$out = array();
+		// FIXME Tranlations not working, maybe a core problem
+		if(\Configuration::get('PUIS_CLDE') == $cart->id_carrier && $carrier){
+			$out = array(
+				$this->moduleInstance->l('Μέθοδος Αποστολής: ', __CLASS__) => $carrier->name,
+				'Διεύθυνση: ' => 'Αρτοτίνης 44, 11633 Αθήνα, Κατόπιν Συνεννόησης'
+			);
+		}
+
+		return $out;
+	}
+
 }
 
 $GLOBALS['pickupinstore'] = array(
